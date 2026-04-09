@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Get a Quote | SVADEX Trading – Request Sourcing Information</title>
+  <meta name="description" content="Request a free sourcing quote from SVADEX Trading. Tell us your product requirements and we'll provide competitive pricing from India."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@700;800;900&family=Big+Shoulders+Display:wght@700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .step-indicator { display:flex; align-items:center; gap:0; margin-bottom:2.5rem; }
+    .step-dot {
+      width:36px; height:36px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-size:0.82rem; font-weight:700;
+      background:var(--clr-dark-3); border:2px solid var(--clr-border);
+      color:var(--clr-text-muted); transition:var(--transition); flex-shrink:0;
+    }
+    .step-dot.active { background:var(--clr-accent); border-color:var(--clr-accent); color:#fff; }
+    .step-dot.done  { background:rgba(46,213,115,0.15); border-color:#2ed573; color:#2ed573; }
+    .step-line { flex:1; height:2px; background:var(--clr-border); }
+    .step-line.done { background:linear-gradient(90deg,var(--clr-accent),#2ed573); }
+    .step-label { font-size:0.72rem; color:var(--clr-text-muted); text-align:center; margin-top:6px; white-space:nowrap; }
+    .step-wrap { display:flex; flex-direction:column; align-items:center; }
+    .form-step { display:none; }
+    .form-step.active { display:block; }
+    .required-star { color:var(--clr-accent); margin-left:2px; }
+    .product-check-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+    .product-check-item {
+      display:flex; align-items:center; gap:10px;
+      padding:0.75rem 1rem;
+      background:var(--clr-dark-3);
+      border:1px solid var(--clr-border);
+      border-radius:var(--radius);
+      cursor:pointer; transition:var(--transition);
+      font-size:0.88rem;
+    }
+    .product-check-item:hover { border-color:rgba(0, 51, 102, 0.4); }
+    .product-check-item input[type="checkbox"] { accent-color:var(--clr-accent); width:16px; height:16px; cursor:pointer; }
+    .product-check-item.checked { border-color:var(--clr-accent); background:var(--clr-accent); color:#fff; }
+    .nav-step-btns { display:flex; gap:1rem; margin-top:2rem; align-items:center; flex-wrap:wrap; }
+    .quote-sidebar { position:sticky; top:calc(var(--nav-h) + 2rem); }
+    .sidebar-card { background:var(--clr-dark-2); border:1px solid var(--clr-border); border-radius:var(--radius-lg); padding:2rem; margin-bottom:1.5rem; }
+    .process-step { display:flex; gap:1rem; align-items:flex-start; padding-bottom:1.2rem; border-bottom:1px solid var(--clr-border); margin-bottom:1.2rem; }
+    .process-step:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+    .process-num { width:32px; height:32px; border-radius:50%; background:var(--clr-accent-l); border:1px solid rgba(0, 51, 102, 0.3); display:flex; align-items:center; justify-content:center; font-size:0.78rem; font-weight:800; color:var(--clr-accent); flex-shrink:0; }
+    .process-title { font-size:0.88rem; font-weight:700; color:var(--clr-heading); }
+    .process-desc { font-size:0.8rem; color:var(--clr-text-muted); margin-top:2px; line-height:1.5; }
+    .progress-bar-wrap { height:4px; background:var(--clr-dark-3); border-radius:2px; margin-bottom:2rem; overflow:hidden; }
+    .progress-bar { height:100%; background:linear-gradient(90deg,var(--clr-accent),var(--clr-accent-2)); border-radius:2px; transition:width 0.5s ease; }
+    .char-counter { font-size:0.75rem; color:var(--clr-text-muted); text-align:right; margin-top:4px; }
+    .summary-row { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; font-size:0.88rem; padding:0.6rem 0; border-bottom:1px solid var(--clr-border); }
+    .summary-row:last-child { border-bottom:none; }
+    .summary-label { color:var(--clr-text-muted); flex-shrink:0; }
+    .summary-val { color:var(--clr-heading); font-weight:600; text-align:right; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar" class="scrolled">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="Svadex Trading logo with globe.png" alt="SVADEX Trading" class="nav-logo-img">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="quote.html" class="btn btn-primary nav-cta">Get a Quote</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <div class="page-header-eyebrow">Free Sourcing Quote</div>
+    <h1 class="page-header-title">Get a <span class="text-accent">Quote</span></h1>
+    <nav style="margin-top:1rem;" aria-label="Breadcrumb">
+      <span style="font-size:0.82rem;color:var(--clr-text-muted);">
+        <a href="index.html" style="color:var(--clr-text-muted);" onmouseover="this.style.color='var(--clr-accent)'" onmouseout="this.style.color='var(--clr-text-muted)'">Home</a>
+        &nbsp;/&nbsp; Get a Quote
+      </span>
+    </nav>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<section class="section-pad" style="padding-top:3rem;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:3.5rem;align-items:start;" id="quoteMainGrid">
+
+      <!-- LEFT: FORM -->
+      <div>
+        <!-- Progress Bar -->
+        <div class="progress-bar-wrap">
+          <div class="progress-bar" id="progressBar" style="width:33%;"></div>
+        </div>
+
+        <!-- Step Indicator -->
+        <div class="step-indicator" id="stepIndicator">
+          <div class="step-wrap">
+            <div class="step-dot active" id="dot1">1</div>
+            <div class="step-label">Your Info</div>
+          </div>
+          <div class="step-line" id="line1"></div>
+          <div class="step-wrap">
+            <div class="step-dot" id="dot2">2</div>
+            <div class="step-label">Products</div>
+          </div>
+          <div class="step-line" id="line2"></div>
+          <div class="step-wrap">
+            <div class="step-dot" id="dot3">3</div>
+            <div class="step-label">Details</div>
+          </div>
+        </div>
+
+        <div class="quote-card" style="padding:2.5rem;">
+
+          <!-- STEP 1: Contact Info -->
+          <div class="form-step active" id="step1">
+            <div class="section-label" style="margin-bottom:0.5rem;">Step 1 of 3</div>
+            <h2 style="font-size:1.5rem;margin-bottom:0.4rem;">Your <span class="text-accent">Contact Details</span></h2>
+            <p style="font-size:0.88rem;color:var(--clr-text-muted);margin-bottom:2rem;">Tell us who you are and how we can reach you.</p>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="qName">Full Name <span class="required-star">*</span></label>
+                <input class="form-control" type="text" id="qName" placeholder="John Smith"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="qEmail">Email Address <span class="required-star">*</span></label>
+                <input class="form-control" type="email" id="qEmail" placeholder="john@company.com"/>
+              </div>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="qPhone">Phone / WhatsApp</label>
+                <input class="form-control" type="tel" id="qPhone" placeholder="+1 000 000 0000"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="qCompany">Company Name</label>
+                <input class="form-control" type="text" id="qCompany" placeholder="Your Company Ltd."/>
+              </div>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="qCountry">Country <span class="required-star">*</span></label>
+                <select class="form-control" id="qCountry">
+                  <option value="" disabled selected>Select your country</option>
+                  <option>United Arab Emirates</option><option>Saudi Arabia</option>
+                  <option>Kuwait</option><option>Qatar</option><option>Bahrain</option>
+                  <option>Oman</option><option>United States</option><option>United Kingdom</option>
+                  <option>Germany</option><option>France</option><option>Canada</option>
+                  <option>Australia</option><option>Singapore</option><option>Malaysia</option>
+                  <option>South Africa</option><option>Kenya</option><option>Nigeria</option>
+                  <option>Bangladesh</option><option>Sri Lanka</option><option>Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="qBizType">Business Type</label>
+                <select class="form-control" id="qBizType">
+                  <option value="" disabled selected>Select type</option>
+                  <option>Importer / Trader</option>
+                  <option>Retailer / Wholesaler</option>
+                  <option>Manufacturer</option>
+                  <option>Restaurant / Food Service</option>
+                  <option>Construction Company</option>
+                  <option>Industrial Company</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="nav-step-btns">
+              <button class="btn btn-primary" onclick="goStep(2)" id="step1Next">
+                Next: Select Products
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 2: Product Selection -->
+          <div class="form-step" id="step2">
+            <div class="section-label" style="margin-bottom:0.5rem;">Step 2 of 3</div>
+            <h2 style="font-size:1.5rem;margin-bottom:0.4rem;">Select <span class="text-accent">Product Categories</span></h2>
+            <p style="font-size:0.88rem;color:var(--clr-text-muted);margin-bottom:2rem;">Select the categories you're interested in sourcing. You can choose multiple.</p>
+
+            <div class="product-check-grid" id="productCheckGrid">
+              <label class="product-check-item" onclick="toggleCheck(this)">
+                <input type="checkbox" name="products" value="Agro Products" id="checkAgro"/>
+                <span>🌿 Agro Products</span>
+              </label>
+              <label class="product-check-item" onclick="toggleCheck(this)">
+                <input type="checkbox" name="products" value="Packaging Solutions" id="checkPkg"/>
+                <span>📦 Packaging Solutions</span>
+              </label>
+              <label class="product-check-item" onclick="toggleCheck(this)">
+                <input type="checkbox" name="products" value="Industrial Supply" id="checkInd"/>
+                <span>⚙️ Industrial Supply</span>
+              </label>
+              <label class="product-check-item" onclick="toggleCheck(this)">
+                <input type="checkbox" name="products" value="Construction Materials" id="checkConst"/>
+                <span>🏗️ Construction Materials</span>
+              </label>
+            </div>
+
+            <div class="form-group" style="margin-top:1.5rem;">
+              <label class="form-label" for="qSpecificProducts">Specific Products / Items <span class="required-star">*</span></label>
+              <textarea class="form-control" id="qSpecificProducts" rows="3" placeholder="e.g. Cashew W320 – 2 Tons, Turmeric Powder – 500 kg, Corrugated Boxes 30×30×30 cm…" oninput="updateChar(this,'specChar',300)"></textarea>
+              <div class="char-counter"><span id="specChar">0</span>/300</div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="qQuantity">Estimated Quantity</label>
+                <input class="form-control" type="text" id="qQuantity" placeholder="e.g. 5 Tons, 1000 units"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="qFrequency">Order Frequency</label>
+                <select class="form-control" id="qFrequency">
+                  <option value="" disabled selected>Select frequency</option>
+                  <option>One-time order</option>
+                  <option>Monthly</option>
+                  <option>Quarterly</option>
+                  <option>Bi-annually</option>
+                  <option>Annually</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="nav-step-btns">
+              <button class="btn btn-ghost" onclick="goStep(1)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+                Back
+              </button>
+              <button class="btn btn-primary" onclick="goStep(3)">
+                Next: More Details
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 3: Details & Submit -->
+          <div class="form-step" id="step3">
+            <div class="section-label" style="margin-bottom:0.5rem;">Step 3 of 3</div>
+            <h2 style="font-size:1.5rem;margin-bottom:0.4rem;">Additional <span class="text-accent">Details</span></h2>
+            <p style="font-size:0.88rem;color:var(--clr-text-muted);margin-bottom:2rem;">Help us understand your exact requirements so we can give you the best quote.</p>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="qDestPort">Destination Port / City</label>
+                <input class="form-control" type="text" id="qDestPort" placeholder="e.g. Dubai, Jebel Ali Port"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="qIncoterm">Preferred Incoterm</label>
+                <select class="form-control" id="qIncoterm">
+                  <option value="" disabled selected>Select incoterm</option>
+                  <option>FOB (Free on Board)</option>
+                  <option>CIF (Cost, Insurance &amp; Freight)</option>
+                  <option>EXW (Ex Works)</option>
+                  <option>CFR (Cost and Freight)</option>
+                  <option>DDP (Delivered Duty Paid)</option>
+                  <option>Not sure</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="qTimeline">Required Timeline</label>
+                <select class="form-control" id="qTimeline">
+                  <option value="" disabled selected>Select timeline</option>
+                  <option>Within 2 weeks</option>
+                  <option>Within 1 month</option>
+                  <option>1–3 months</option>
+                  <option>3–6 months</option>
+                  <option>Flexible</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="qBudget">Approximate Budget (USD)</label>
+                <select class="form-control" id="qBudget">
+                  <option value="" disabled selected>Select range</option>
+                  <option>Under $5,000</option>
+                  <option>$5,000 – $20,000</option>
+                  <option>$20,000 – $50,000</option>
+                  <option>$50,000 – $100,000</option>
+                  <option>$100,000+</option>
+                  <option>Prefer not to say</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="qPackagingReq">Packaging Requirements</label>
+              <input class="form-control" type="text" id="qPackagingReq" placeholder="e.g. 25 kg PP bags, custom labeled, vacuum packed…"/>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="qAddlInfo">Additional Information / Notes</label>
+              <textarea class="form-control" id="qAddlInfo" rows="4" placeholder="Any certifications required? Special conditions? Past experience with Indian suppliers? Business goals?" oninput="updateChar(this,'addlChar',500)"></textarea>
+              <div class="char-counter"><span id="addlChar">0</span>/500</div>
+            </div>
+
+            <!-- Summary Preview -->
+            <div style="background:var(--clr-dark-3);border:1px solid var(--clr-border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem;" id="quoteSummary">
+              <h4 style="font-size:0.85rem;font-weight:700;color:var(--clr-heading);margin-bottom:1rem;letter-spacing:0.05em;text-transform:uppercase;">📋 Quote Summary</h4>
+              <div class="summary-row"><span class="summary-label">Name</span><span class="summary-val" id="sumName">—</span></div>
+              <div class="summary-row"><span class="summary-label">Email</span><span class="summary-val" id="sumEmail">—</span></div>
+              <div class="summary-row"><span class="summary-label">Country</span><span class="summary-val" id="sumCountry">—</span></div>
+              <div class="summary-row"><span class="summary-label">Products</span><span class="summary-val" id="sumProducts">—</span></div>
+              <div class="summary-row"><span class="summary-label">Quantity</span><span class="summary-val" id="sumQty">—</span></div>
+            </div>
+
+            <div class="nav-step-btns">
+              <button class="btn btn-ghost" onclick="goStep(2)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+                Back
+              </button>
+              <button class="btn btn-primary" onclick="submitQuote()" id="quoteSubmitBtn" style="flex:1;justify-content:center;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+                Submit Quote Request
+              </button>
+            </div>
+          </div>
+
+          <!-- SUCCESS STATE -->
+          <div class="form-step text-center" id="stepSuccess" style="padding:2rem 0;">
+            <div style="font-size:4rem;margin-bottom:1rem;">🎉</div>
+            <h2 style="font-size:1.8rem;margin-bottom:0.7rem;color:var(--clr-heading);">Quote Request <span class="text-accent">Submitted!</span></h2>
+            <p style="color:var(--clr-text-muted);max-width:420px;margin:0 auto 2rem;line-height:1.8;">Thank you! Our sourcing team will review your requirements and send you a detailed quotation within <strong style="color:var(--clr-heading);">24–48 business hours</strong>.</p>
+            <div style="background:rgba(46,213,115,0.08);border:1px solid rgba(46,213,115,0.25);border-radius:var(--radius);padding:1.2rem 1.5rem;margin-bottom:2rem;display:inline-block;">
+              <div style="color:#2ed573;font-weight:700;font-size:0.9rem;">✅ Confirmation sent to your email</div>
+            </div>
+            <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+              <a href="products.html" class="btn btn-outline">Browse Products</a>
+              <a href="index.html" class="btn btn-ghost">Back to Home</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT: SIDEBAR -->
+      <div class="quote-sidebar anim-fade-up anim-delay-2">
+
+        <!-- Why Get a Quote -->
+        <div class="sidebar-card">
+          <h3 style="font-size:1rem;font-weight:700;color:var(--clr-heading);margin-bottom:1.2rem;">🚀 Our Quote Process</h3>
+          <div class="process-step">
+            <div class="process-num">1</div>
+            <div>
+              <div class="process-title">Submit Requirements</div>
+              <div class="process-desc">Fill out this form with your product needs, quantity, and destination.</div>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-num">2</div>
+            <div>
+              <div class="process-title">We Review &amp; Source</div>
+              <div class="process-desc">Our team identifies the best suppliers for your specific requirements.</div>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-num">3</div>
+            <div>
+              <div class="process-title">Receive Quotation</div>
+              <div class="process-desc">Get a detailed quote with pricing, lead times, and logistics options.</div>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-num">4</div>
+            <div>
+              <div class="process-title">Confirm &amp; Deliver</div>
+              <div class="process-desc">On approval, we handle sourcing, QC, documentation, and shipping.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Guarantees -->
+        <div class="sidebar-card">
+          <h3 style="font-size:1rem;font-weight:700;color:var(--clr-heading);margin-bottom:1.2rem;">✅ Our Commitments</h3>
+          <ul style="display:flex;flex-direction:column;gap:0.8rem;">
+            <li style="display:flex;align-items:center;gap:10px;font-size:0.87rem;color:var(--clr-text-muted);">
+              <span style="color:var(--clr-accent);font-size:1rem;">→</span> Response within 24–48 hours
+            </li>
+            <li style="display:flex;align-items:center;gap:10px;font-size:0.87rem;color:var(--clr-text-muted);">
+              <span style="color:var(--clr-accent);font-size:1rem;">→</span> No obligation, 100% free quote
+            </li>
+            <li style="display:flex;align-items:center;gap:10px;font-size:0.87rem;color:var(--clr-text-muted);">
+              <span style="color:var(--clr-accent);font-size:1rem;">→</span> Competitive, transparent pricing
+            </li>
+            <li style="display:flex;align-items:center;gap:10px;font-size:0.87rem;color:var(--clr-text-muted);">
+              <span style="color:var(--clr-accent);font-size:1rem;">→</span> Direct sourcing — no middlemen
+            </li>
+            <li style="display:flex;align-items:center;gap:10px;font-size:0.87rem;color:var(--clr-text-muted);">
+              <span style="color:var(--clr-accent);font-size:1rem;">→</span> Quality assured from the source
+            </li>
+            <li style="display:flex;align-items:center;gap:10px;font-size:0.87rem;color:var(--clr-text-muted);">
+              <span style="color:var(--clr-accent);font-size:1rem;">→</span> Flexible MOQ negotiations
+            </li>
+          </ul>
+        </div>
+
+        <!-- Direct Contact -->
+        <div class="sidebar-card" style="background:linear-gradient(135deg,var(--clr-dark-3),var(--clr-dark-4));border-color:rgba(0, 51, 102, 0.2);">
+          <h3 style="font-size:1rem;font-weight:700;color:var(--clr-heading);margin-bottom:1rem;">💬 Prefer to Talk?</h3>
+          <p style="font-size:0.85rem;color:var(--clr-text-muted);margin-bottom:1.2rem;line-height:1.7;">Reach us directly and our team will assist you immediately.</p>
+          <a href="tel:+918891028220" class="btn btn-primary" style="width:100%;justify-content:center;margin-bottom:0.8rem;font-size:0.9rem;">
+            📞 +91 88910 28220
+          </a>
+          <a href="mailto:info@svadextrading.com" class="btn btn-outline" style="width:100%;justify-content:center;font-size:0.9rem;">
+            ✉ info@svadextrading.com
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="nav-logo"><img src="Svadex Trading logo with globe.png" alt="SVADEX Trading" class="nav-logo-img" style="height:120px;"></div><p>A global export and sourcing company delivering quality products directly from origin to international markets.</p></div>
+      <div class="footer-col"><h4>Quick Links</h4><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="products.html">Products</a></li><li><a href="contact.html">Contact</a></li><li><a href="quote.html">Get a Quote</a></li></ul></div>
+      <div class="footer-col"><h4>Products</h4><ul class="footer-links"><li><a href="products.html#industrial">Industrial Supply</a></li><li><a href="products.html#packaging">Packaging Solutions</a></li><li><a href="products.html#construction">Construction Materials</a></li><li><a href="products.html#agro">Agro Products</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul class="footer-links"><li><a href="mailto:info@svadextrading.com">info@svadextrading.com</a></li><li><a href="tel:+918891028220">+91 88910 28220</a></li><li style="color:var(--clr-text-muted);font-size:0.85rem;line-height:1.7;">Neeloth Plaza, East Nadakkavu,<br/>Kozhikode, Kerala – 673006</li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2025 SVADEX Trading. All rights reserved.</span><div class="footer-social"><a href="mailto:info@svadextrading.com" class="social-link">✉</a><a href="tel:+918891028220" class="social-link">📞</a></div></div>
+  </div>
+</footer>
+
+<script>
+  /* ─── Navbar ─── */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll',()=>{ navbar.classList.toggle('scrolled',window.scrollY>40); });
+  document.getElementById('hamburger').addEventListener('click',()=>{ document.getElementById('navLinks').classList.toggle('open'); });
+  const observer = new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); }}); },{threshold:0.1});
+  document.querySelectorAll('.anim-fade-up').forEach(el=>observer.observe(el));
+
+  /* ─── Responsive grid ─── */
+  function checkGrid(){
+    const g = document.getElementById('quoteMainGrid');
+    if(g) g.style.gridTemplateColumns = window.innerWidth < 960 ? '1fr' : '1.6fr 1fr';
+  }
+  checkGrid(); window.addEventListener('resize',checkGrid);
+
+  /* ─── Multi-step form ─── */
+  let currentStep = 1;
+  const totalSteps = 3;
+  const progress = [33, 66, 100];
+
+  function goStep(n) {
+    // Validate step 1
+    if (n > 1 && currentStep === 1) {
+      const name = document.getElementById('qName').value.trim();
+      const email = document.getElementById('qEmail').value.trim();
+      const country = document.getElementById('qCountry').value;
+      if (!name || !email || !country) {
+        highlight(['qName','qEmail','qCountry'], name, email, country);
+        return;
+      }
+    }
+    // Validate step 2
+    if (n > 2 && currentStep === 2) {
+      const sp = document.getElementById('qSpecificProducts').value.trim();
+      if (!sp) {
+        document.getElementById('qSpecificProducts').focus();
+        document.getElementById('qSpecificProducts').style.borderColor = '#ef4444';
+        setTimeout(()=>document.getElementById('qSpecificProducts').style.borderColor='',2000);
+        return;
+      }
+    }
+
+    document.getElementById('step' + currentStep).classList.remove('active');
+    currentStep = n;
+    document.getElementById('step' + n).classList.add('active');
+
+    // Update dots
+    for(let i=1;i<=3;i++){
+      const dot = document.getElementById('dot'+i);
+      dot.classList.remove('active','done');
+      if(i < n) dot.classList.add('done'), dot.innerHTML='✓';
+      else if(i === n) dot.classList.add('active'), dot.innerHTML=i;
+      else dot.innerHTML=i;
+    }
+    // Update lines
+    for(let i=1;i<=2;i++){
+      const line = document.getElementById('line'+i);
+      line.classList.toggle('done', i < n);
+    }
+    // Update progress
+    document.getElementById('progressBar').style.width = progress[n-1] + '%';
+
+    // Populate summary if step 3
+    if(n===3) populateSummary();
+
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function highlight(ids, ...vals) {
+    ids.forEach((id, i) => {
+      if(!vals[i]) {
+        const el = document.getElementById(id);
+        el.style.borderColor = '#ef4444';
+        el.focus();
+        setTimeout(()=>el.style.borderColor='',2000);
+      }
+    });
+  }
+
+  function populateSummary() {
+    document.getElementById('sumName').textContent    = document.getElementById('qName').value || '—';
+    document.getElementById('sumEmail').textContent   = document.getElementById('qEmail').value || '—';
+    document.getElementById('sumCountry').textContent = document.getElementById('qCountry').value || '—';
+    const checked = [...document.querySelectorAll('input[name="products"]:checked')].map(c=>c.value);
+    document.getElementById('sumProducts').textContent = checked.length ? checked.join(', ') : '—';
+    document.getElementById('sumQty').textContent     = document.getElementById('qQuantity').value || '—';
+  }
+
+  function toggleCheck(el) {
+    el.classList.toggle('checked', el.querySelector('input').checked);
+  }
+
+  function updateChar(el, counterId, max) {
+    const len = Math.min(el.value.length, max);
+    document.getElementById(counterId).textContent = len;
+    if (len >= max) el.value = el.value.slice(0, max);
+  }
+
+  function submitQuote() {
+    // Gather form data
+    const name = document.getElementById('qName').value.trim();
+    const email = document.getElementById('qEmail').value.trim();
+    const country = document.getElementById('qCountry').value;
+    const products = [...document.querySelectorAll('input[name="products"]:checked')].map(c=>c.value).join(', ');
+    const specificItems = document.getElementById('qSpecificProducts').value.trim();
+    const qty = document.getElementById('qQuantity').value.trim();
+
+    // Construct WhatsApp Message
+    const whatsappMsg = `*New Quote Request - SVADEX*%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Country:* ${country}%0A*Categories:* ${products}%0A*Specific Items:* ${specificItems}%0A*Quantity:* ${qty}`;
+    const whatsappUrl = `https://wa.me/918891028220?text=${whatsappMsg}`;
+
+    // Update UI
+    const btn = document.getElementById('quoteSubmitBtn');
+    btn.textContent = 'Submitting…';
+    btn.disabled = true;
+
+    // Open WhatsApp
+    window.open(whatsappUrl, '_blank');
+
+    // Simulate success (In a real scenario, you'd use formspree or similar for email)
+    setTimeout(()=>{
+      document.getElementById('step3').classList.remove('active');
+      document.getElementById('stepSuccess').classList.add('active');
+      document.getElementById('progressBar').style.width = '100%';
+      for(let i=1;i<=3;i++){
+        const dot = document.getElementById('dot'+i);
+        dot.classList.remove('active');
+        dot.classList.add('done');
+        dot.innerHTML='✓';
+      }
+      document.getElementById('line1').classList.add('done');
+    }, 1500);
+  }
+
+  // ─── Global Heading Letter Animation ───
+  function splitLetters(el) {
+    [...el.childNodes].forEach(node => {
+      if (node.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        const words = node.textContent.split(' ');
+        words.forEach((word, i) => {
+          const wordSpan = document.createElement('span');
+          wordSpan.style.display = 'inline-block';
+          wordSpan.style.whiteSpace = 'nowrap';
+          [...word].forEach(char => {
+            const s = document.createElement('span');
+            s.textContent = char;
+            s.className = 'char';
+            wordSpan.appendChild(s);
+          });
+          frag.appendChild(wordSpan);
+          if (i < words.length - 1) {
+            frag.appendChild(document.createTextNode(' '));
+          }
+        });
+        el.replaceChild(frag, node);
+      } else if (node.nodeType === 1 && !node.classList.contains('no-split')) {
+        splitLetters(node);
+      }
+    });
+  }
+
+  const headingObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.char').forEach((c, i) => {
+          c.style.animationDelay = (i * 0.03) + 's';
+          c.classList.add('animate');
+        });
+        headingObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('h1, h2, .section-title').forEach(h => {
+    splitLetters(h);
+    headingObserver.observe(h);
+  });
+</script>
+</body>
+</html>
