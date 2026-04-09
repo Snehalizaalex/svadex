@@ -392,26 +392,36 @@ h2 { font-size: clamp(1.8rem, 5vw, 2.8rem); margin-bottom: 1.2rem; }
     line-height: 1.1; 
     max-width: 100%;
   }
-  .hero-title .accent-line { margin-left: 2rem !important; display: block; margin-top: 0.4rem; }
+  .hero-title .accent-line { margin-left: 6rem !important; display: block; margin-top: 0.4rem; }
   .hero-actions { justify-content: flex-start; gap: 0.8rem; }
   .hero-actions .btn { padding: 0.75rem 1.5rem; font-size: 0.85rem; }
   .hero-stats { justify-content: flex-start; margin-top: 2rem; gap: 1.5rem; }
   .hero-stats-item .stat-num { font-size: 1.8rem; }
   .hero-cards-wrap { 
+    display: flex;
     justify-content: flex-start; 
-    margin-top: 3rem; 
-    overflow-x: auto; 
+    margin-top: 3.5rem; 
+    gap: 1rem;
     padding: 10px 1.5rem 30px;
     margin-left: -1.5rem;
     margin-right: -1.5rem;
+    overflow-x: auto;
     scrollbar-width: none;
-    gap: 1.2rem;
+    -webkit-overflow-scrolling: touch;
   }
   .hero-cards-wrap::-webkit-scrollbar { display: none; }
   .hero-vertical-card { 
-    flex: 0 0 240px; 
-    height: 160px; 
-    border-radius: 12px;
+    flex: 0 0 160px; 
+    height: 120px; 
+    min-width: 0;
+    border-radius: 14px;
+    border: 1.5px solid rgba(255,255,255,0.6);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  }
+  .hero-vertical-card-label {
+    font-size: 0.65rem;
+    padding: 0.8rem 0.5rem 0.5rem;
+    letter-spacing: 0.02em;
   }
   .nav-logo-img { height: 70px; }
 }
