@@ -102,10 +102,7 @@
           <img src="5 (3).jpeg" alt="Shipping" />
           <div class="hero-vertical-card-label">Shipping</div>
         </div>
-        <div class="hero-vertical-card">
-          <img src="cRTIN.jpeg" alt="Packaging" />
-          <div class="hero-vertical-card-label">Packaging</div>
-        </div>
+
       </div>
     </div>
     <div class="hero-scroll-indicator">
@@ -212,27 +209,35 @@
     </div>
   </section>
 
-  <!-- ══════════ ABOUT SNIPPET + IMAGE MOSAIC ══════════ -->
   <section class="section-pad bg-dark-2">
     <div class="container">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
-        <div class="anim-fade-up">
+      <div class="about-dynamic-grid">
+        <div class="about-text-content anim-fade-up">
           <div class="section-label">About SVADEX</div>
-          <h2 class="section-title">Direct From Origin, <span class="text-accent">Delivered Globally</span></h2>
+          <h2 class="section-title">Direct From <br class="m-br"> Origin, Delivered <br class="m-br"> <span class="text-accent">Globally</span></h2>
           <div class="divider"></div>
-          <p style="color:var(--clr-text-muted);line-height:1.9;margin-bottom:1.5rem;">SVADEX Trading is a global export
+          
+          <!-- Mobile Video (Hidden on Desktop) -->
+          <div class="m-video-wrap">
+            <video src="video.mp4" autoplay loop muted playsinline class="mosaic-video"></video>
+          </div>
+
+          <p class="about-brief-note">SVADEX Trading is a global export
             and sourcing company dedicated to delivering quality products directly from origin to international markets.
             By eliminating intermediaries, we ensure better quality control, competitive pricing, and consistent supply.
           </p>
-          <p style="color:var(--clr-text-muted);line-height:1.9;margin-bottom:2rem;">Leveraging a reliable supplier
+          <p class="about-brief-note-2">Leveraging a reliable supplier
             network across India, we provide flexible and efficient sourcing solutions tailored to diverse business
             needs — from agricultural commodities to industrial supplies.</p>
-          <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+          
+          <div class="about-btns">
             <a href="about.html" class="btn btn-primary">Learn More About Us</a>
             <a href="contact.html" class="btn btn-outline">Contact Us</a>
           </div>
         </div>
-        <div class="img-mosaic anim-fade-up anim-delay-2">
+
+        <!-- Desktop Video Mosaic (Hidden on Mobile) -->
+        <div class="img-mosaic anim-fade-up anim-delay-2 d-mosaic">
           <div class="img-wrap img-mosaic-main">
             <img src="images/hero.png" alt="Cargo ship export" />
           </div>
@@ -250,7 +255,7 @@
   <!-- ══════════ WHY CHOOSE US ══════════ -->
   <section class="section-pad">
     <div class="container">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;">
+      <div class="why-grid">
         <div class="anim-fade-up">
           <div class="section-label">Why Choose Us</div>
           <h2 class="section-title">Built on <span class="text-accent">Trust &amp; Transparency</span></h2>
@@ -259,7 +264,7 @@
             honesty, reliability, and long-term commitment.</p>
           <a href="quote.html" class="btn btn-primary" style="margin-top:2rem;">Start Your Inquiry</a>
         </div>
-        <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="why-items-container anim-fade-up">
           <div class="why-item anim-fade-up anim-delay-1">
             <div class="why-num">01</div>
             <div>
@@ -292,6 +297,13 @@
                 selection to packaging specifications and delivery schedules.</div>
             </div>
           </div>
+          <div class="why-item anim-fade-up anim-delay-5">
+            <div class="why-num">05</div>
+            <div>
+              <div class="why-title">Global Logistics &amp; Support</div>
+              <div class="why-desc">End-to-end logistics support ensuring your goods reach their destination safely, on time, and with full documentation.</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -307,27 +319,23 @@
         <p class="section-sub" style="margin:0 auto 3rem;">From food processing to manufacturing and construction —
           SVADEX serves diverse industries across continents.</p>
       </div>
-      <div class="grid-4 anim-fade-up">
+      <div class="grid-4 anim-fade-up why-items-container">
         <div class="service-card">
-          <div style="font-size:2.2rem;margin-bottom:0.8rem;">🛒</div>
           <div style="font-weight:700;color:var(--clr-heading);margin-bottom:0.4rem;">Food Processing</div>
           <div style="font-size:0.85rem;color:var(--clr-text-muted);">Spices, grains, dehydrated &amp; fresh produce for
             processors worldwide.</div>
         </div>
         <div class="service-card">
-          <div style="font-size:2.2rem;margin-bottom:0.8rem;">🏭</div>
           <div style="font-weight:700;color:var(--clr-heading);margin-bottom:0.4rem;">Manufacturing</div>
           <div style="font-size:0.85rem;color:var(--clr-text-muted);">Industrial supplies, PPE, tools &amp; machinery
             parts for factories.</div>
         </div>
         <div class="service-card">
-          <div style="font-size:2.2rem;margin-bottom:0.8rem;">🏗️</div>
           <div style="font-weight:700;color:var(--clr-heading);margin-bottom:0.4rem;">Construction</div>
           <div style="font-size:0.85rem;color:var(--clr-text-muted);">Tiles, steel, plumbing &amp; electrical for
             builders and contractors.</div>
         </div>
         <div class="service-card">
-          <div style="font-size:2.2rem;margin-bottom:0.8rem;">🛍️</div>
           <div style="font-weight:700;color:var(--clr-heading);margin-bottom:0.4rem;">Retail &amp; FMCG</div>
           <div style="font-size:0.85rem;color:var(--clr-text-muted);">Branded &amp; private-label packaging solutions
             for retail distribution.</div>
@@ -483,6 +491,36 @@
       splitLetters(h);
       headingObserver.observe(h);
     });
+
+    // Auto-scroll mobile galleries
+    function initAutoScroll(containerSelector) {
+      const container = document.querySelector(containerSelector);
+      if (!container) return;
+      
+      let isPaused = false;
+      container.addEventListener('touchstart', () => isPaused = true);
+      container.addEventListener('touchend', () => {
+        setTimeout(() => isPaused = false, 3000);
+      });
+
+      setInterval(() => {
+        if (isPaused || window.innerWidth > 768) return;
+        
+        const scrollAmount = container.clientWidth * 0.8;
+        if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 10) {
+          container.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+      }, 4000);
+    }
+
+    // Initialize for both Why Choose Us and Industries section on mobile
+    window.addEventListener('load', () => {
+      initAutoScroll('.why-items-container');
+      initAutoScroll('.grid-4.why-items-container');
+    });
+
     // ─── Splash Screen ───
     window.addEventListener('load', () => {
       const splash = document.getElementById('splash-screen');
