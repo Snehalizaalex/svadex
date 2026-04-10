@@ -24,7 +24,7 @@
   --radius:        9999px; /* Pill/Full rounding */
   --radius-lg:     24px;   /* Sophisticated card rounding */
   --transition:    0.35s cubic-bezier(0.4,0,0.2,1);
-  --nav-h:         68px;
+  --nav-h:         70px;
   --font-body:     'Inter', sans-serif;
   --font-display:  'Big Shoulders Display', sans-serif;
   --font-heading:  'Outfit', sans-serif;
@@ -165,8 +165,8 @@ h2 { font-size: clamp(1.8rem, 5vw, 2.8rem); margin-bottom: 1.2rem; }
 }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 100%; width: 100%; padding: 0 2rem; }
 .nav-logo { display: flex; align-items: center; gap: 10px; }
-.nav-logo-img { height: 60px; width: auto; object-fit: contain; transition: var(--transition); mix-blend-mode: multiply; }
-#navbar.scrolled .nav-logo-img { height: 50px; }
+.nav-logo-img { height: 60px; width: auto; object-fit: contain; transition: var(--transition); mix-blend-mode: multiply; transform: scale(2.5); transform-origin: left center; margin-right: 100px; }
+#navbar.scrolled .nav-logo-img { transform: scale(2.2); }
 .product-cat-header { display: flex; align-items: center; gap: 1.5rem; }
 @media (max-width: 768px) {
   .product-cat-header { flex-direction: column; text-align: center; }
@@ -395,7 +395,7 @@ h2 { font-size: clamp(1.8rem, 5vw, 2.8rem); margin-bottom: 1.2rem; }
     margin: 0;
   }
   .nav-inner { padding: 0 1.5rem; }
-  .nav-logo-img { height: 50px; }
+  .nav-logo-img { height: 50px; transform: scale(2.2); transform-origin: left center; margin-right: 60px; }
   .nav-links.open {
     top: 85px;
     width: 90%;
@@ -542,6 +542,10 @@ h2 { font-size: clamp(1.8rem, 5vw, 2.8rem); margin-bottom: 1.2rem; }
 .cta-banner h2 { font-size: clamp(1.6rem, 3.5vw, 2.5rem); margin-bottom: 1rem; color: #fff; }
 .cta-banner .text-accent { color: var(--clr-accent-3); }
 .cta-banner p { color: rgba(255,255,255,0.8); max-width: 500px; margin: 0 auto 2rem; }
+.cta-banner .btn-primary { background: #ffffff; color: var(--clr-accent); box-shadow: 0 4px 15px rgba(255,255,255,0.1); }
+.cta-banner .btn-primary:hover { background: rgba(255,255,255,0.9); box-shadow: 0 8px 24px rgba(255,255,255,0.2); }
+.cta-banner .btn-outline { border-color: rgba(255,255,255,0.6); color: #ffffff; }
+.cta-banner .btn-outline:hover { background: #ffffff; color: var(--clr-accent); }
 
 /* ─── Products Page ─── */
 .product-cat-tabs { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
