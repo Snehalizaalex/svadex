@@ -542,8 +542,8 @@ h2 { font-size: clamp(1.8rem, 5vw, 2.8rem); margin-bottom: 1.2rem; }
 .cta-banner h2 { font-size: clamp(1.6rem, 3.5vw, 2.5rem); margin-bottom: 1rem; color: #fff; }
 .cta-banner .text-accent { color: var(--clr-accent-3); }
 .cta-banner p { color: rgba(255,255,255,0.8); max-width: 500px; margin: 0 auto 2rem; }
-.cta-banner .btn-primary { background: #ffffff; color: var(--clr-accent); box-shadow: 0 4px 15px rgba(255,255,255,0.1); }
-.cta-banner .btn-primary:hover { background: rgba(255,255,255,0.9); box-shadow: 0 8px 24px rgba(255,255,255,0.2); }
+.cta-banner .btn-primary { background: transparent; border: 2px solid #ffffff; color: #ffffff; box-shadow: none; }
+.cta-banner .btn-primary:hover, .cta-banner .btn-primary:active { background: #ffffff; color: var(--clr-accent); box-shadow: 0 8px 24px rgba(255,255,255,0.2); }
 .cta-banner .btn-outline { border-color: rgba(255,255,255,0.6); color: #ffffff; }
 .cta-banner .btn-outline:hover { background: #ffffff; color: var(--clr-accent); }
 
