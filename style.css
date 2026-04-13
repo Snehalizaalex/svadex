@@ -1169,4 +1169,72 @@ body.no-scroll { overflow: hidden; }
     height: 28px;
   }
 }
+/* ─── Industries Marquee Gallery ─── */
+.industries-marquee-outer {
+  width: 100%;
+  overflow: hidden;
+  padding: 1rem 0 2rem;
+  cursor: default;
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+.industries-marquee-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  will-change: transform;
+}
+.ind-card {
+  flex: 0 0 260px;
+  background: var(--clr-white);
+  border: 1px solid var(--clr-border);
+  border-top: 3px solid var(--clr-accent-2);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.6rem;
+  text-align: center;
+  box-shadow: 0 6px 24px rgba(0,27,61,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-top-color 0.3s ease;
+  user-select: none;
+}
+.ind-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0,27,61,0.13);
+  border-top-color: var(--clr-accent-3);
+}
+.ind-icon {
+  font-size: 2.4rem;
+  margin-bottom: 0.8rem;
+  line-height: 1;
+}
+.ind-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--clr-heading);
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.01em;
+}
+.ind-desc {
+  font-size: 0.85rem;
+  color: var(--clr-text-muted);
+  line-height: 1.65;
+}
+
+@media (max-width: 768px) {
+  .industries-marquee-outer {
+    padding: 0.5rem 0 1.5rem;
+    /* Tighter fade on narrow screens */
+    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  }
+  .industries-marquee-track { gap: 1rem; }
+  .ind-card {
+    flex: 0 0 170px;
+    padding: 1.4rem 1rem;
+    border-radius: 16px;
+  }
+  .ind-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+  .ind-title { font-size: 0.9rem; margin-bottom: 0.4rem; }
+  .ind-desc { font-size: 0.78rem; line-height: 1.55; }
+}
 
